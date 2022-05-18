@@ -1,4 +1,4 @@
-const { user } = require('../../models');
+const { users } = require('../../models');
 const { isAuthorized } = require('../tokenFunctions');
 
 module.exports = async (req, res) => {
@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
   const {email} = accessTokenData
 
 
-  const userInfo = await user.findOne({
+  const userInfo = await users.findOne({
     where: {email}
   })
 

@@ -1,14 +1,16 @@
-const { user } = require('../../models');
+const { users } = require('../../models');
 const { generateAccessToken, sendAccessToken } = require('../tokenFunctions');
 
 module.exports = async (req, res) => {
+  console.log('1111',req.body)
   const {email, password} = req.body
-  const userInfo=await user.findOne({where : {email,password}})
+  const userInfo=await users.find({where : {email,password}})
+  console.log('2222',userInfo)
 
   // if(userInfo.email !==null && userInfo.password !== null) {
   //   return res.status(200).json()
   // }
-  if (userInfo.email !== null && userInfo.password !== null) {
+  if (userInfo.email === req.email && userInfo.password === req.password) {
     return res.status(200).send('invalid user')
   }
   
@@ -17,7 +19,7 @@ module.exports = async (req, res) => {
   }
 
   else if (userInfo.email === null) {
-  return res.status(500).send(err)
+  return res.status(500).send('')
   }
 
   delete userInfo.dataValues.password

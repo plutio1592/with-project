@@ -1,4 +1,4 @@
-const { user } = require('../../models');
+const { users } = require('../../models');
 const { generateAccessToken } = require('../tokenFunctions');
 
 module.exports = async (req, res) => {
@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
 if(!email||!password||!username||!mobile) return res.status(422)
 .send('insufficient parameters supplied')
   const accessToken = generateAccessToken(userInfo.dataValues)
-  const [userInfo,created] =await user.findOrCreate({where:{email},defaults:{email,password}})
+  const [userInfo,created] =await users.findOrCreate({where:{email},defaults:{email,password}})
 
   if (userInfo) {
     res.status(200).send("회원가입 성공")
